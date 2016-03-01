@@ -1,0 +1,22 @@
+{
+  "name": "esainca_inv",
+  "description": "Validador de inventario",
+  "main": "",
+  "authors": [
+    "Luis Troya <troyaluis56@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "laravel"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/assets/bower",
+    "test",
+    "tests"
+  ]
+}
