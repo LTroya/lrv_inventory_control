@@ -52,7 +52,7 @@ class ProductController extends Controller
         $matchThese = ['code' => $request->input('code'), 'style' => $request->input('style'), 'measure'=>$request->input('measure')];
         $product = Product::where($matchThese)->first();
         return response()->json(['confirmado'
-            =>$product ? 'Producto confirmado.' : 'Producto no confirmado']);
+            =>$product ? 'Producto confirmado' : 'Producto no confirmado']);
     }
 
     /**
@@ -64,7 +64,6 @@ class ProductController extends Controller
     public function destroy(Request $request, Product $product)
     {
         $product->delete();
-//        return response()->json(["status" => "OK", "messages" => ["message" => "Producto eliminado"]]);
         return redirect('/products')->with('message', $product->code . ' ha sido eliminado.');
     }
 
@@ -91,7 +90,6 @@ class ProductController extends Controller
 
         // Validar si se recibe un archivo
         if (empty($_FILES['file'])) {
-//            return response()->json(['status' => 'error', "messages" => ['message' => 'No se recibio ningún archivo']]);
             return redirect()->back()->withErrors(['No se recibio ningun archivo']);
         }
 
@@ -102,7 +100,6 @@ class ProductController extends Controller
 
         // Validar que la extension sea xlsx
         if ($ext !== 'xlsx') {
-//            return response()->json(['status' => 'error', "messages" => ['message' => 'Solo se permite importar archivos .xlsx']]);
             return redirect()->back()->withErrors(['Solo se permite importar archivos .xlsx']);
         }
 

@@ -21,10 +21,8 @@ class AuthController extends Controller
     {
         $data = ['email' => $request->input('email'), 'password' => $request->input('password')];
         if (Auth::attempt($data)) {
-//            return response()->json(["status" => "ok", "messages" => ["message" => "Logeado"]]);
             return redirect('/products');
         }
-//        return response()->json(["status" => "error", "messages" => ["message" => "El usuario y/o el password no son correctos."]]);
         return redirect()->back()->withErrors(['El usuario y/o el password son incorrectos.'])->withInput(['email']);
     }
 
