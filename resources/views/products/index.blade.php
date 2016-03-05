@@ -7,9 +7,13 @@
 @section('content')
 
     @include('auth.logout')
+    <button class="btn btn-danger" id="deleteAllBtn">Borrar todo</button>
     @if(Session::has('message'))
         <div class="alert alert-success" role="alert">
             {{ Session::get('message') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
 
@@ -51,4 +55,37 @@
 
     {{--@include('pagination.default', ['paginator' => $products])--}}
     {!!   $products->appends(array('code'=>$code))->render() !!}
+
+    {{-- Modal --}}
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background: #d9534f; color: #fff">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Eliminar</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center" style="font-size:24px; padding: 20px 0 20px 0;">
+                        ¿Deseas eliminar todos los registros?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <form action="/product/delete/all" method="POST" style="display: inline;">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-danger">Eliminar todo</button>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script>
+        $(document).ready(function () {
+            $('#deleteAllBtn').click(function () {
+                $('#modal').modal('toggle');
+            });
+        })
+    </script>
 @endsection

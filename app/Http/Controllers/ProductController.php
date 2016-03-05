@@ -43,16 +43,19 @@ class ProductController extends Controller
         return response()->json(["status" => "OK", "product" => $product]);
     }
 
-    public function getCheck() {
+    public function getCheck()
+    {
         return view('products.check');
     }
 
     public function check(Request $request)
     {
-        $matchThese = ['code' => $request->input('code'), 'style' => $request->input('style'), 'measure'=>$request->input('measure')];
+        $matchThese = ['code' => $request->input('code'), 'style' => $request->input('style'), 'measure' => $request->input('measure')];
         $product = Product::where($matchThese)->first();
-        return response()->json(['confirmado'
-            =>$product ? 'Producto confirmado' : 'Producto no confirmado']);
+        return response()->json([
+            'status' => $product ? '200' : 400,
+            'message' => $product ? 'Producto confirmado' : 'Producto no confirmado'
+        ]);
     }
 
     /**
@@ -65,6 +68,18 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect('/products')->with('message', $product->code . ' ha sido eliminado.');
+    }
+
+    public function destroyAll(Request $request)
+    {
+        if (Product::first()) {
+            Product::truncate();
+            $response = 'Todos los productos han sido eliminados.';
+        } else {
+            $response = 'No hay registros guardados.';
+        }
+
+        return redirect('/products')->with('message', $response);
     }
 
     /**

@@ -64,9 +64,15 @@ Route::delete('/product/{product}', [
     'middleware' => 'auth',
     'uses' => 'ProductController@destroy'
 ]);
+// Ruta para eliminar todos los productos
+Route::delete('/product/delete/all', [
+    'middleware' => 'auth',
+    'uses' => 'ProductController@destroyAll'
+]);
 
 /**
- * Manual Migrations execution commands...
+ * Comando para hacer migracion en un servidor
+ * sin acceso a la consola de comandos.
  */
 Route::get('migrate', function () {
 
